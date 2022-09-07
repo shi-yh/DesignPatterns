@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace DesignPatterns
         {
             Program program = new Program();
 
-            program.TestPayFacade();
+            program.TestProxy();
 
         }
 
@@ -151,6 +152,37 @@ namespace DesignPatterns
             PayFacade pf = new PayFacade();
 
             Console.WriteLine("order:" + pf.CreateOrder("syh", 0, 1, 12) + "created");
+
+        }
+
+
+        private void TestFlyWeight()
+        {
+            Console.WriteLine(GC.GetTotalMemory(false));
+
+            Random rnd = new Random();
+
+            ArrayList al = new ArrayList();
+
+            for (int i = 0; i < 10000; i++)
+            {
+                string modelName = rnd.Next(2).ToString();
+
+                Model2 model = ModelFactory.GetInstance().GetModel(modelName);
+
+                al.Add(model);
+            }
+
+
+            Console.WriteLine(GC.GetTotalMemory(false));
+        }
+
+        private void TestProxy()
+        {
+            AccountProxy ap = new AccountProxy();
+
+            ap.Register();
+
 
         }
 
