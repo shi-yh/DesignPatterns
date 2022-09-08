@@ -16,9 +16,56 @@ namespace DesignPatterns
         {
             Program program = new Program();
 
-            program.TestProxy();
+            program.TestBridge();
 
         }
+
+        private void TestBridge()
+        {
+            PatrixScene halfPaper = new HalfPaperScene();
+
+            halfPaper.Mode = new GoldMode();
+
+            halfPaper.LoadScene();
+
+            PatrixScene matrix = new MatrixScene();
+
+            matrix.Mode = new PropertyMode();
+
+            matrix.LoadScene();
+
+
+        }
+
+
+        private void TestComposite()
+        {
+            Element server1 = new GameServer("GS1", "192.168.0.1");
+
+            server1.Add(new GameService("Lobby1", 1, "SSLobby"));
+            server1.Add(new GameService("Gate1", 2, "SSGate1"));
+            server1.Add(new GameService("DataExchange1", 1, "SSDataExchange1"));
+            server1.Add(new GameService("Rank1", 1, "SSRank1"));
+            server1.Add(new GameService("Log1", 1, "SSLog1"));
+
+
+            Element server2 = new GameServer("GS2", "192.168.0.2");
+            server2.Add(new GameService("Lobby2", 1, "S5Lobby2"));
+            server2.Add(new GameService("Gate2", 2, "S5Gate2"));
+            server2.Add(new GameService("DataExchange2", 3, "S5DataExchange1"));
+            server2.Add(new GameService("Rank2", 4, "S5Rank2"));
+            server2.Add(new GameService("Log2", 5, "S5Log2"));
+
+            Element area = new GameArea("电信区");
+            area.Add(server1);
+            area.Add(server2);
+            area.Display();
+            area.Start();
+            area.Stop();
+
+
+        }
+
 
         private void TestSingleton()
         {
